@@ -1,0 +1,67 @@
+name: Build and Release CRX
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    check-version:
+        runs-on: ubuntu-latest
+        outputs:
+            should_release: ${{ steps.check.outputs.should_release }}
+            next_version: ${{ steps.check.outputs.next_version }}
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+
+            - name: Check manifest version vs latest tag
+              id: check
+              run: |
+                  node scripts/check-version.mjs
+              shell: bash
+
+    build-crx:
+        needs: check-version
+        if: needs.check-version.outputs.should_release == 'true'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18'
+
+            - name: Decode private key
+              run: |
+                  echo "$CHROME_EXTENSION_PRIVATE_KEY_B64" | base64 -d > chrome-extension.pem
+              env:
+                  CHROME_EXTENSION_PRIVATE_KEY_B64: ${{ secrets.CHROME_EXTENSION_PRIVATE_KEY_B64 }}
+
+            - name: Install crx packer
+              run: npm install -g crx
+
+            - name: Build CRX
+              run: |
+                  mkdir -p dist
+                  crx pack ./ --key=chrome-extension.pem --output=dist/tailwind-helper.crx
+
+            - name: Tag commit
+              run: |
+                  git config user.name "github-actions"
+                  git config user.email "github-actions@github.com"
+                  git tag ${{ needs.check-version.outputs.next_version }}
+                  git push origin ${{ needs.check-version.outputs.next_version }}
+
+            - name: Upload release
+              uses: softprops/action-gh-release@v1
+              with:
+                  tag_name: ${{ needs.check-version.outputs.next_version }}
+                  files: dist/tailwind-helper.crx
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
