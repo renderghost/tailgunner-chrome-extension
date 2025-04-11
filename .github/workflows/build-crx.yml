@@ -5,6 +5,9 @@ on:
         branches:
             - main
 
+permissions:
+    contents: write
+
 jobs:
     check-version:
         runs-on: ubuntu-latest
@@ -31,6 +34,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
+                  fetch-tags: true
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
