@@ -15,7 +15,7 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 ## ⚙️ Installation
 
 ### From Chrome Web Store
-1. Visit the [Chrome Web Store](https://chrome.google.com/webstore) (coming soon)
+1. Visit the [Chrome Web Store](https://chrome.google.com/webstore)
 2. Search for "Tailgunner"
 3. Click "Add to Chrome"
 
@@ -28,12 +28,12 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 
 ## 🚀 Usage
 
-1. Navigate to any webpage
-2. Click the Tailgunner icon in your Chrome toolbar
-3. A panel will appear in the bottom-right corner of your browser
-4. The panel shows current viewport dimensions and the active Tailwind breakpoint
-5. Resize your browser window to see the values update in real-time
-6. Click the extension icon again to hide the panel
+1. Navigate to any webpage.
+2. Click the Tailgunner icon in your Chrome toolbar.
+3. A panel will appear in the bottom-right corner of your browser.
+4. The panel shows current viewport dimensions and the active Tailwind CSS breakpoint.
+5. Resize your browser window to see the values update in real-time.
+6. Click the extension icon again to hide the panel.
 
 ## 🔍 Features
 
@@ -48,10 +48,10 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 
 The extension uses Manifest V3 and requires minimal permissions to function:
 
-| Permission                     | Purpose                                                        | Justification                                                                                                                                                         |
-| ------------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `activeTab`                    | Allows the extension to interact with the currently active tab | Required to inject the viewport panel into the current page. Limited to the active tab only for security and privacy. Does not access browsing history or other tabs. |
-| `host_permissions: <all_urls>` | Allows content scripts to run on all websites                  | Required to show the viewport panel on any website. Does not collect any data from these sites.                                                                       |
+| Permission | Purpose | Justification |
+|------------|---------|---------------|
+| `activeTab` | Allows the extension to interact with the currently active tab | Required to inject the viewport panel into the current page. Limited to the active tab only for security and privacy. Does not access browsing history or other tabs. |
+| `host_permissions: <all_urls>` | Allows content scripts to run on all websites | Required to show the viewport panel on any website. Does not collect any data from these sites. |
 
 Manifest settings:
 
@@ -59,13 +59,31 @@ Manifest settings:
 {
   "manifest_version": 3,
   "name": "Tailgunner",
-  "description": "Displays viewport size and Tailwind breakpoint",
+  "description": "Displays viewport size and Tailwind CSS breakpoint",
   "version": "1.0",
-  "permissions": ["activeTab"],
-  "host_permissions": ["<all_urls>"],
-  "background": {"service_worker": "background.js"},
-  "action": {"default_title": "Toggle Tailgunner Panel"},
-  "content_scripts": [{"matches": ["<all_urls>"], "js": ["content.js"]}]
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Toggle Tailgunner Panel"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
 }
 ```
 
@@ -80,23 +98,25 @@ Manifest settings:
 
 The extension consists of three main files:
 
-1. **manifest.json**: Configuration file that defines extension metadata, permissions, and behavior
-2. **background.js**: Service worker that handles extension icon clicks and messaging
-3. **content.js**: Content script that creates and manages the viewport panel
+1. **manifest.json**: Configuration file that defines extension metadata, permissions, and behavior.
+2. **background.js**: Service worker that handles extension icon clicks and messaging.
+3. **content.js**: Content script that creates and manages the viewport panel.
 
-### Architecture
+### Architecture & Versioning
 
-- **Message Passing**: Uses Chrome's message passing system to communicate between background and content scripts
-- **Event Handling**: Efficiently manages browser events with debouncing for performance
-- **DOM Manipulation**: Creates and updates the panel using vanilla JavaScript
-- **Error Handling**: Comprehensive error catching and reporting
+**Current Version: 1.0**
+
+- **Message Passing**: Uses Chrome's message passing system to communicate between background and content scripts.
+- **Event Handling**: Efficiently manages browser events with debouncing for performance.
+- **DOM Manipulation**: Creates and updates the panel using vanilla JavaScript.
+- **Error Handling**: Comprehensive error catching and reporting.
 
 ### Tailwind Breakpoints
 
 The extension uses standard Tailwind CSS breakpoints:
 
 | Breakpoint | Width (px) |
-| ---------- | ---------- |
+|------------|------------|
 | none       | < 640      |
 | sm         | ≥ 640      |
 | md         | ≥ 768      |
@@ -108,20 +128,20 @@ The extension uses standard Tailwind CSS breakpoints:
 
 The extension includes comprehensive error handling:
 
-- **Validation**: Input validation for all parameters and operations
-- **Try-Catch Blocks**: Wrapped around all critical operations
-- **Console Logging**: Descriptive error messages with clear prefixes
-- **Graceful Degradation**: Fails safely and cleans up resources when errors occur
+- **Validation**: Input validation for all parameters and operations.
+- **Try-Catch Blocks**: Wrapped around all critical operations.
+- **Console Logging**: Descriptive error messages with 'Tailgunner:' prefix for easy identification.
+- **Graceful Degradation**: Fails safely and cleans up resources when errors occur.
 
-For developers, a debug mode can be enabled by setting `DEBUG = true` in content.js.
+For developers, a debug mode can be enabled by setting `DEBUG = true` in content.js. When enabled, additional console messages will help trace execution flow and state changes during development.
 
 ## 🛠️ Development and Contribution
 
 ### Setup Development Environment
 
-1. Clone the repository
-2. Make your changes to the source files
-3. Load the extension in developer mode to test
+1. Clone the repository.
+2. Make your changes to the source files.
+3. Load the extension in developer mode to test.
 
 ### Contribution Guidelines
 
@@ -133,17 +153,17 @@ For developers, a debug mode can be enabled by setting `DEBUG = true` in content
 
 ### Code Style
 
-- Use modern JavaScript features
-- Include JSDoc comments for functions
-- Follow the existing error handling patterns
-- Maintain the same level of code quality
+- Use modern JavaScript features.
+- Include JSDoc comments for functions.
+- Follow the existing error handling patterns.
+- Maintain the same level of code quality.
 
 ## 🔒 Privacy and Security
 
-- **No Data Collection**: This extension does not collect or transmit any user data
-- **Local Processing**: All functionality runs locally in your browser
-- **Minimal Permissions**: Uses only the permissions necessary for core functionality
-- **No External Resources**: Does not load any external scripts or resources
+- **No Data Collection**: This extension does not collect or transmit any user data.
+- **Local Processing**: All functionality runs locally in your browser.
+- **Minimal Permissions**: Uses only the permissions necessary for core functionality.
+- **No External Resources**: Does not load any external scripts or resources.
 
 ## 📄 Chrome Web Store Compliance
 
@@ -152,15 +172,15 @@ This extension complies with Chrome Web Store policies by:
 1. **Requesting minimal permissions**: Only `activeTab` permission is required
 2. **Clear purpose**: Functionality is focused and clearly described
 3. **No data collection**: Does not collect, store, or transmit user data
-4. **No obfuscated code**: All code is human-readable and commented
+4. **No obfuscated code**: All code is fully documented and transparently implemented
 5. **No external libraries**: Uses only vanilla JavaScript
 6. **Consistent branding**: Name and description are consistent and accurate
 
 ## 📋 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgements
 
-- [Tailwind CSS](https://tailwindcss.com/) for their excellent CSS framework
-- All contributors who help improve this extension
+- [Tailwind CSS](https://tailwindcss.com/) for their excellent CSS framework.
+- All contributors who help improve this extension.
