@@ -13,7 +13,7 @@
 - Set up automatic release creation with attached CRX file
 
 ## Installation
-The extension can now be installed directly from the release artifacts. Download `tailwind-helper.crx` from this release and drag it into Chrome's extension page.
+The extension can now be installed directly from the release artifacts. Download `tailgunner-for-tailwind.crx` from this release and drag it into Chrome's extension page.
 
 ## For Developers
 The build process is now fully automated. When pushing to main:

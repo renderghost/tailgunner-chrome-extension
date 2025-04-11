@@ -54,7 +54,7 @@ jobs:
             - name: Build CRX
               run: |
                   mkdir -p dist
-                  crx pack . -p chrome-extension.pem -o dist/tailwind-helper.crx
+                  crx pack . -p chrome-extension.pem -o dist/tailgunner-for-tailwind.crx
 
             - name: Tag commit
               run: |
@@ -67,6 +67,6 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                   tag_name: ${{ needs.check-version.outputs.next_version }}
-                  files: dist/tailwind-helper.crx
+                  files: dist/tailgunner-for-tailwind.crx
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
