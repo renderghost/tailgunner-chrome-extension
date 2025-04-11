@@ -1,4 +1,4 @@
-# Tailginner - Tailwind CSS Breakpoint Helper
+# Tailgunner - Tailwind CSS Breakpoint Helper
 
 A lightweight Chrome extension that displays your current viewport size and corresponding Tailwind CSS breakpoint in real-time.
 
@@ -6,7 +6,7 @@ A lightweight Chrome extension that displays your current viewport size and corr
 
 ## 📋 Overview
 
-Tailginner helps web developers by providing an unobtrusive, real-time display of:
+Tailgunner helps web developers by providing an unobtrusive, real-time display of:
 - Current viewport dimensions (width × height)
 - Active Tailwind CSS breakpoint
 
@@ -16,20 +16,20 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 
 ### From Chrome Web Store
 1. Visit the [Chrome Web Store](https://chrome.google.com/webstore) (coming soon)
-2. Search for "Tailginner"
+2. Search for "Tailgunner"
 3. Click "Add to Chrome"
 
 ### Manual Installation (Developer Mode)
 1. Download or clone this repository
 2. Open Chrome and navigate to `chrome://extensions/`
 3. Enable "Developer mode" using the toggle in the top-right corner
-4. Click "Load unpacked" and select the Tailginner directory
+4. Click "Load unpacked" and select the Tailgunner directory
 5. The extension should now appear in your toolbar
 
 ## 🚀 Usage
 
 1. Navigate to any webpage
-2. Click the Tailginner icon in your Chrome toolbar
+2. Click the Tailgunner icon in your Chrome toolbar
 3. A panel will appear in the bottom-right corner of your browser
 4. The panel shows current viewport dimensions and the active Tailwind breakpoint
 5. Resize your browser window to see the values update in real-time
@@ -58,7 +58,7 @@ Manifest settings:
 ```json
 {
   "manifest_version": 3,
-  "name": "Tailginner",
+  "name": "Tailgunner",
   "description": "Displays viewport size and Tailwind breakpoint",
   "version": "1.0",
   "permissions": ["activeTab"],
@@ -164,5 +164,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - [Tailwind CSS](https://tailwindcss.com/) for their excellent CSS framework
 - All contributors who help improve this extension
-
-# tailgunner-chrome-extension

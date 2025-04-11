@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Tailginner",
+  "name": "Tailgunner",
   "description": "Displays viewport size and Tailwind breakpoint",
   "version": "1.0",
   "permissions": [
@@ -27,4 +27,3 @@
     }
   ]
 }
-
