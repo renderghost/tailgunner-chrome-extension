@@ -49,7 +49,7 @@ jobs:
             - name: Build CRX
               run: |
                   mkdir -p dist
-                  crx pack ./ --key=chrome-extension.pem --output=dist/tailwind-helper.crx
+                  crx pack . -p chrome-extension.pem -o dist/tailwind-helper.crx
 
             - name: Tag commit
               run: |
