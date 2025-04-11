@@ -2,7 +2,7 @@
 
 A lightweight Chrome extension that displays your current viewport size and corresponding Tailwind CSS breakpoint in real-time.
 
-![Tailginner Demo](https://via.placeholder.com/640x400?text=Tailginner+Screenshot)
+![Screenshot of Tailgunner in action](preview.png "Tailgunner in action!")
 
 ## 📋 Overview
 
@@ -48,10 +48,10 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 
 The extension uses Manifest V3 and requires minimal permissions to function:
 
-| Permission | Purpose | Justification |
-|------------|---------|---------------|
-| `activeTab` | Allows the extension to interact with the currently active tab | Required to inject the viewport panel into the current page. Limited to the active tab only for security and privacy. Does not access browsing history or other tabs. |
-| `host_permissions: <all_urls>` | Allows content scripts to run on all websites | Required to show the viewport panel on any website. Does not collect any data from these sites. |
+| Permission                     | Purpose                                                        | Justification                                                                                                                                                         |
+| ------------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeTab`                    | Allows the extension to interact with the currently active tab | Required to inject the viewport panel into the current page. Limited to the active tab only for security and privacy. Does not access browsing history or other tabs. |
+| `host_permissions: <all_urls>` | Allows content scripts to run on all websites                  | Required to show the viewport panel on any website. Does not collect any data from these sites.                                                                       |
 
 Manifest settings:
 
@@ -96,7 +96,7 @@ The extension consists of three main files:
 The extension uses standard Tailwind CSS breakpoints:
 
 | Breakpoint | Width (px) |
-|------------|------------|
+| ---------- | ---------- |
 | none       | < 640      |
 | sm         | ≥ 640      |
 | md         | ≥ 768      |
