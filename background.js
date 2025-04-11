@@ -2,10 +2,10 @@
 console.log('Tailgunner extension initialized');
 
 /**
- * Toggles the Tailwind panel in the active tab
+ * Toggles the Tailgunner panel in the active tab
  * @param {chrome.tabs.Tab} tab - The active browser tab
  */
-function toggleTailwindPanel(tab) {
+function toggleTailgunnerPanel(tab) {
   // Validate tab object and ID
   if (!tab) {
     console.error('Tailgunner: No active tab found');
@@ -50,5 +50,5 @@ function toggleTailwindPanel(tab) {
 }
 
 // Register the click handler
-chrome.action.onClicked.addListener(toggleTailwindPanel);
+chrome.action.onClicked.addListener(toggleTailgunnerPanel);
 

@@ -13,7 +13,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Toggle Tailwind Panel"
+    "default_title": "Toggle Tailgunner Panel"
   },
   "content_scripts": [
     {

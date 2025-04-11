@@ -64,7 +64,7 @@ Manifest settings:
   "permissions": ["activeTab"],
   "host_permissions": ["<all_urls>"],
   "background": {"service_worker": "background.js"},
-  "action": {"default_title": "Toggle Tailwind Panel"},
+  "action": {"default_title": "Toggle Tailgunner Panel"},
   "content_scripts": [{"matches": ["<all_urls>"], "js": ["content.js"]}]
 }
 ```
