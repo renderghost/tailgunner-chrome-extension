@@ -1,0 +1,11 @@
+# Git attributes to ensure consistent line endings
+* text=auto
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+
+# Binary files
+*.png binary
+*.crx binary
+*.pem binary
