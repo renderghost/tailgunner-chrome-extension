@@ -1,4 +1,4 @@
-# Tailgunner - Tailwind CSS Breakpoint Helper
+# Tailgunner for Tailwind - Tailwind CSS Breakpoint Helper
 
 A lightweight Chrome extension that displays your current viewport size and corresponding Tailwind CSS breakpoint in real-time.
 
@@ -14,10 +14,10 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 
 ## ⚙️ Installation
 
-### From Chrome Web Store
-1. Visit the [Chrome Web Store](https://chrome.google.com/webstore)
+<!-- ### From Chrome Web Store
+1. Visit the [Chrome Web Store](https://chrome.google.com/webstore) COMING SOON
 2. Search for "Tailgunner"
-3. Click "Add to Chrome"
+3. Click "Add to Chrome" -->
 
 ### Manual Installation (Developer Mode)
 1. Download or clone this repository
@@ -48,10 +48,10 @@ The extension creates a semi-transparent panel in the bottom-right corner of you
 
 The extension uses Manifest V3 and requires minimal permissions to function:
 
-| Permission | Purpose | Justification |
-|------------|---------|---------------|
-| `activeTab` | Allows the extension to interact with the currently active tab | Required to inject the viewport panel into the current page. Limited to the active tab only for security and privacy. Does not access browsing history or other tabs. |
-| `host_permissions: <all_urls>` | Allows content scripts to run on all websites | Required to show the viewport panel on any website. Does not collect any data from these sites. |
+| Permission                     | Purpose                                                        | Justification                                                                                                                                                         |
+| ------------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeTab`                    | Allows the extension to interact with the currently active tab | Required to inject the viewport panel into the current page. Limited to the active tab only for security and privacy. Does not access browsing history or other tabs. |
+| `host_permissions: <all_urls>` | Allows content scripts to run on all websites                  | Required to show the viewport panel on any website. Does not collect any data from these sites.                                                                       |
 
 Manifest settings:
 
@@ -60,7 +60,7 @@ Manifest settings:
   "manifest_version": 3,
   "name": "Tailgunner",
   "description": "Displays viewport size and Tailwind CSS breakpoint",
-  "version": "1.0",
+  "version": "1.0.1",
   "permissions": [
     "activeTab"
   ],
@@ -104,7 +104,7 @@ The extension consists of three main files:
 
 ### Architecture & Versioning
 
-**Current Version: 1.0**
+**Current Version: 1.0.1**
 
 - **Message Passing**: Uses Chrome's message passing system to communicate between background and content scripts.
 - **Event Handling**: Efficiently manages browser events with debouncing for performance.
@@ -116,7 +116,7 @@ The extension consists of three main files:
 The extension uses standard Tailwind CSS breakpoints:
 
 | Breakpoint | Width (px) |
-|------------|------------|
+| ---------- | ---------- |
 | none       | < 640      |
 | sm         | ≥ 640      |
 | md         | ≥ 768      |
@@ -157,6 +157,46 @@ For developers, a debug mode can be enabled by setting `DEBUG = true` in content
 - Include JSDoc comments for functions.
 - Follow the existing error handling patterns.
 - Maintain the same level of code quality.
+
+### 🔑 Security and Key Management
+
+The extension uses a private key (PEM file) for signing the CRX package. For security reasons:
+
+- **PEM files are ignored by git**: All `.pem` files are excluded via `.gitignore`
+- **Never commit private keys**: The private key should be kept secret and never shared in version control
+- **Automated build security**: The build process uses GitHub Actions secrets for secure key management
+
+#### Key Management for Developers
+
+1. **Local Development**: For local development, you can generate your own private key:
+   ```bash
+   openssl genpkey -algorithm RSA -out chrome-extension.pem -pkeyopt rsa_keygen_bits:2048
+   ```
+
+2. **CI/CD Pipeline**: For the automated build process:
+   - The private key is stored as a base64-encoded GitHub secret (`CHROME_EXTENSION_PRIVATE_KEY_B64`)
+   - It's decoded during the build process to sign the CRX file
+   - To update this secret, encode your PEM file:
+     ```bash
+     base64 -i chrome-extension.pem > encoded_key.txt
+     ```
+     Then copy the contents to the GitHub repository secrets
+
+### 🚀 Automated Build Process
+
+This project uses GitHub Actions to automate the build and release process:
+
+1. **Version Check**: When code is pushed to main, a script checks if the manifest version is newer than the latest tag
+2. **Build Process**: If a new version is detected, the workflow:
+   - Decodes the private key from GitHub secrets
+   - Builds the CRX package
+   - Creates a new tag matching the version number
+   - Creates a GitHub release with the CRX attached
+
+To trigger a new release:
+1. Update the version in `manifest.json`
+2. Commit and push to main
+3. The GitHub Action will handle the rest automatically
 
 ## 🔒 Privacy and Security
 
